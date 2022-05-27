@@ -7,7 +7,20 @@
 
     <fragment
         android:id="@+id/ramListFragment"
-        android:name="com.example.rickandmorty.RamListFragment"
+        android:name="com.example.rickandmorty.view.CharacterListFragment"
         android:label="fragment_ram_list"
-        tools:layout="@layout/fragment_ram_list" />
+        tools:layout="@layout/fragment_character_list" >
+        <action
+            android:id="@+id/navigateToDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.rickandmorty.view.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail" >
+        <argument
+            android:name="characterId"
+            />
+    </fragment>
 </navigation>
