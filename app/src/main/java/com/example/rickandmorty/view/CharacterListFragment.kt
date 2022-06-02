@@ -1,6 +1,8 @@
 package com.example.rickandmorty.view
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +13,29 @@ import androidx.navigation.Navigation
 import com.example.rickandmorty.R
 import com.example.rickandmorty.adapter.CharacterListAdapter
 import com.example.rickandmorty.databinding.FragmentCharacterListBinding
+import com.example.rickandmorty.interfaces.FilterCharacter
 import com.example.rickandmorty.viewmodel.CharacterListViewModel
 import com.example.rickandmorty.model.Character
 import kotlinx.coroutines.flow.collectLatest
 
 
-class CharacterListFragment : Fragment(), CharacterListAdapter.OnItemClickListener<Character> {
+class CharacterListFragment() : Fragment(), CharacterListAdapter.OnItemClickListener<Character>, FilterCharacter,
+    Parcelable {
 
     private lateinit var binding: FragmentCharacterListBinding
     private val viewModel: CharacterListViewModel by viewModels()
     private val characterListAdapter by lazy { CharacterListAdapter() }
+
+    constructor(parcel: Parcel) : this() {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCharacterListBinding.inflate(inflater)
+        binding.characterListFragment = this
         binding.lifecycleOwner = this
 
         setAdapter()
@@ -46,7 +55,7 @@ class CharacterListFragment : Fragment(), CharacterListAdapter.OnItemClickListen
 
     private fun setData() = with(viewModel) {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            getListData().collectLatest {
+            getListData(null,null).collectLatest {
                 this@CharacterListFragment.characterListAdapter.submitData(it)
             }
         }
@@ -58,5 +67,40 @@ class CharacterListFragment : Fragment(), CharacterListAdapter.OnItemClickListen
         ).toBundle())
     }
 
+    fun filterBtnClick() {
+        Navigation.findNavController(binding.root).navigate(
+
+            R.id.navigateToFilterFragment, CharacterFilterFragmentArgs(
+                this@CharacterListFragment
+            ).toBundle()
+        )
+    }
+
+    override fun filterValue(name: String?, status: String?): Unit = with(viewModel) {
+        status?.let { name?.let { it1 ->  viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            getListData(it1,it).collectLatest {
+                this@CharacterListFragment.characterListAdapter.submitData(it)
+            }
+        } } }
+
+    }
+
+    override fun describeContents(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        TODO("Not yet implemented")
+    }
+
+    companion object CREATOR : Parcelable.Creator<CharacterListFragment> {
+        override fun createFromParcel(parcel: Parcel): CharacterListFragment {
+            return CharacterListFragment(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CharacterListFragment?> {
+            return arrayOfNulls(size)
+        }
+    }
 
 }

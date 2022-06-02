@@ -5,22 +5,36 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.rickandmorty.viewmodel.CharacterListViewModel" />
+            name="characterListFragment"
+            type="com.example.rickandmorty.view.CharacterListFragment" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.CharacterListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/characterList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_rv"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/row_rv" />
 
-    </FrameLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/teal_700"
+            android:src="@drawable/ic_filter"
+            android:onClick="@{()->characterListFragment.filterBtnClick()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

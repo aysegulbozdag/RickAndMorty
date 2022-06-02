@@ -7,7 +7,10 @@ data class Character(
     val status: String? = null,
     val species: String? = null,
     val image: String? = null,
-    val location: Location? = null
+    val location: Location? = null,
+    val origin: Origin? = null,
+    val gender: String? = null,
+    val episode: ArrayList<String>? = null
 )
 
 data class Location(
@@ -15,13 +18,16 @@ data class Location(
     val url: String? = null
 )
 
-data class info(val count: Int?, val pages: String?, val next: String?, val prev: String?)
-
-/*
-* data class Character(
-    val id: String? = null,
+data class Origin(
     val name: String? = null,
-    val status: String? = null,
-    val species: String? = null,
-    val image: String? = null
-)*/
+    val url: String? = null
+)
+
+data class Episode(
+    val id: Int? = null,
+    val name: String? = null,
+    val air_date: String? = null,
+    val episode: String? = null
+)
+
+data class info(val count: Int?, val pages: String?, val next: String?, val prev: String?)

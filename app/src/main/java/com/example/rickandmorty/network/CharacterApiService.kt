@@ -1,6 +1,7 @@
 package com.example.rickandmorty.network
 
 import com.example.rickandmorty.model.Character
+import com.example.rickandmorty.model.Episode
 import com.example.rickandmorty.model.RickyAndMortList
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -8,18 +9,15 @@ import retrofit2.http.Query
 
 interface CharacterApiService {
     @GET("character")
-   suspend fun getAllCharacters(@Query("page") page: Int) : RickyAndMortList
+    suspend fun getAllCharacters(@Query("name") name: String?,
+                                 @Query("status") status: String?,
+                                 @Query("page") page: Int?): RickyAndMortList
 
-   @GET("character/{id}")
-    suspend fun getSingleCharacter(@Path("id")id: Int) : Character
+    @GET("character/{id}")
+    suspend fun getSingleCharacter(@Path("id") id: Int): Character
 
-    suspend fun filterCharacters(
-        name: String,
-        status: String,
-        species: String,
-        type: String,
-        gender: String
-    )
+    @GET("episode/{id}")
+    suspend fun getEpisode(@Path("id") id: Int): Episode
 }
 
 

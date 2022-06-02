@@ -6,21 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmorty.databinding.FragmentCharacterDetailBinding
-import com.example.rickandmorty.model.Character
 import com.example.rickandmorty.network.Status
 import com.example.rickandmorty.viewmodel.CharacterDetailViewModel
 import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModelProvider
+import com.example.rickandmorty.db.entity.FavCharacter
+import com.example.rickandmorty.viewmodel.ViewModelFactory
 
 class CharacterDetailFragment : Fragment() {
 
-    private val viewModel: CharacterDetailViewModel by viewModels()
+    private lateinit var viewModel: CharacterDetailViewModel
+    private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var bindig: FragmentCharacterDetailBinding
-     val args : CharacterDetailFragmentArgs by navArgs()
+    private val args: CharacterDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,22 +30,57 @@ class CharacterDetailFragment : Fragment() {
     ): View {
 
         bindig = FragmentCharacterDetailBinding.inflate(inflater)
-        viewModel.getNewComment(args.characterId.toInt())
 
+        setInit()
+        getCharacter()
+
+        return bindig.root
+    }
+
+    private fun setInit(){
+        viewModelFactory = ViewModelFactory(requireContext(), args.characterId)
+        viewModel = ViewModelProvider(
+            this, ViewModelFactory(
+                context,
+                args.characterId
+            )
+        )[CharacterDetailViewModel::class.java]
+
+        bindig.characterDetail = this
+        viewModel.getFavCharacter.observe(this, Observer {
+            bindig.favCharacterModel = it
+        })
+    }
+
+  private suspend fun getEpisode(){
+        viewModel.episodeState.collect {
+            it.data?.let { episode ->
+                bindig.episode = episode
+            }
+        }
+    }
+
+    fun getCharacter(){
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.commentState.collect {
+            viewModel.characterState.collect {
                 when (it.status) {
                     Status.SUCCESS -> {
                         it.data?.let { character ->
                             bindig.character = character
+                            getEpisode()
                         }
                     }
-                    else -> { Log.i("message",it.message.toString())}
+                    else -> {
+                        Log.i("message", it.message.toString())
+                    }
                 }
             }
         }
-
-        return bindig.root
     }
+
+    fun saveCharacter() {
+        viewModel.insert(FavCharacter(args.characterId, true))
+    }
+
 
 }

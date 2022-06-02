@@ -1,57 +1,90 @@
 package com.example.rickandmorty.viewmodel
 
+import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.db.FavCharacterInstance
+import com.example.rickandmorty.db.dao.FavCharacterDAO
+import com.example.rickandmorty.db.entity.FavCharacter
 import com.example.rickandmorty.model.Character
+import com.example.rickandmorty.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import com.example.rickandmorty.network.*
 import com.example.rickandmorty.repository.CharacterRepository
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 
-class CharacterDetailViewModel() : ViewModel() {
+class CharacterDetailViewModel(private val context: Context, private val characterId: String) : ViewModel() {
 
-        // Create a Repository and pass the api
-        // service we created in AppConfig file
-        private val repository = CharacterRepository(
-            CharacterApi.RETROFIT_SERVICE
+    private val repository = CharacterRepository(
+        CharacterApi.RETROFIT_SERVICE
+    )
+
+    val characterState = MutableStateFlow(
+        CharacterApiState(
+            Status.LOADING,
+            Character(), ""
         )
+    )
 
-        val commentState = MutableStateFlow(
-            CharacterApiState(
-                Status.LOADING,
-                Character(), ""
-            )
+    val episodeState = MutableStateFlow(
+        CharacterApiState(
+            Status.LOADING,
+            Episode(), ""
         )
+    )
 
-        // Function to get new Comments
-        fun getNewComment(id: Int) {
+    private lateinit var favCharacterDAO: FavCharacterDAO
+    lateinit var getFavCharacter: LiveData<FavCharacter>
 
-            // Since Network Calls takes time,Set the
-            // initial value to loading state
-            commentState.value = CharacterApiState.loading()
+    init {
+        val favCharacterDB = FavCharacterInstance.getDatabase(context)
+        if (favCharacterDB != null) {
+            favCharacterDAO = favCharacterDB.favCharacterDao()
+        }
 
-            // ApiCalls takes some time, So it has to be
-            // run and background thread. Using viewModelScope
-            // to call the api
+        getCharacter()
+        getEpisode()
+        getFavCharacter()
+    }
+
+
+        private fun getCharacter() {
+            characterState.value = CharacterApiState.loading()
             viewModelScope.launch {
-
-                // Collecting the data emitted
-                // by the function in repository
-                repository.getComment(id)
-                    // If any errors occurs like 404 not found
-                    // or invalid query, set the state to error
-                    // State to show some info
-                    // on screen
+                repository.getSingleCharacter(characterId.toInt())
                     .catch {
-                        commentState.value =
+                        characterState.value =
                             CharacterApiState.error(it.message.toString())
                     }
-                    // If Api call is succeeded, set the State to Success
-                    // and set the response data to data received from api
                     .collect {
-                        commentState.value = CharacterApiState.success(it.data)
+                        characterState.value = CharacterApiState.success(it.data)
                     }
             }
         }
+
+    private fun getEpisode() {
+            episodeState.value = CharacterApiState.loading()
+            viewModelScope.launch {
+                repository.getEpisode(characterId.toInt())
+                    .catch {
+                        episodeState.value =
+                            CharacterApiState.error(it.message.toString())
+                    }
+                    .collect {
+                        episodeState.value = CharacterApiState.success(it.data)
+                    }
+            }
+        }
+
+    private fun getFavCharacter() {
+        getFavCharacter = favCharacterDAO.getFavCharacter(characterId)
     }
+
+    fun insert(favCha: FavCharacter){
+        CoroutineScope(Dispatchers.IO).launch {
+            favCharacterDAO.insertFavCharacter(favCha)
+        }
+    }
+}

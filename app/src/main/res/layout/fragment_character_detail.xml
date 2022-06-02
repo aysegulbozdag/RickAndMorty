@@ -7,92 +7,255 @@
         <variable
             name="character"
             type="com.example.rickandmorty.model.Character" />
+        <variable
+            name="episode"
+            type="com.example.rickandmorty.model.Episode" />
+        <variable
+            name="characterDetail"
+            type="com.example.rickandmorty.view.CharacterDetailFragment" />
+        <variable
+            name="favCharacterModel"
+            type="com.example.rickandmorty.db.entity.FavCharacter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/characterDetailLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="3dp"
-            android:text="@{character.status}"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVer"
-            app:layout_constraintTop_toBottomOf="@+id/txtSpecies"
-            tools:text="Status" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineVer"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineHor"
+            app:layout_constraintTop_toTopOf="parent"
             app:loadImage="@{character.image}" />
 
         <TextView
-            android:id="@+id/txtName"
-            android:layout_width="0dp"
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="Name:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:text="@{character.name}"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVer"
-            app:layout_constraintTop_toTopOf="@+id/guidelineHor"
-            tools:text="Ayşegül" />
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Status:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/txtStatusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{character.status}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtStatus"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/txtSpecies"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="3dp"
-            android:text="@{character.species}"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVer"
-            app:layout_constraintTop_toBottomOf="@+id/txtName"
-            tools:text="Species" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineHor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="15dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineVer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="60dp" />
-
-        <View
-            android:id="@+id/vSeperator"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha=".1"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Species:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txtStatus" />
 
+        <TextView
+            android:id="@+id/txtSpeciesValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{character.species}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtSpecies"
+            app:layout_constraintTop_toBottomOf="@+id/txtStatusValue" />
+
+        <TextView
+            android:id="@+id/txtEpisode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Number Of Episodes:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSpecies" />
+
+        <TextView
+            android:id="@+id/txtEpisodeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{String.valueOf(character.episode.size())}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtEpisode"
+            app:layout_constraintTop_toBottomOf="@+id/txtSpeciesValue" />
+
+        <TextView
+            android:id="@+id/txtGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Gender:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEpisode" />
+
+        <TextView
+            android:id="@+id/txtGenderValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{character.gender}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtGender"
+            app:layout_constraintTop_toBottomOf="@+id/txtEpisodeValue" />
+
+        <TextView
+            android:id="@+id/txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Origin Location:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGender" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{character.origin.name}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtLocation"
+            app:layout_constraintTop_toBottomOf="@+id/txtGenderValue" />
+
+        <TextView
+            android:id="@+id/txtLastLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Last Location"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{character.location.name}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtLastLocation"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/txtLastEpisode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Last Seen Episode:"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLastLocation" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{episode.name}"
+            android:textColor="#092A9F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/txtLastEpisode"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->characterDetail.saveCharacter()}"
+            app:loadFavCharacter="@{favCharacterModel.fav}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
