@@ -3,6 +3,7 @@ package com.example.rickandmorty.db.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.rickandmorty.db.entity.FavCharacter
 
@@ -14,5 +15,8 @@ interface FavCharacterDAO {
 
     @Query("Select * from favCharacter WHERE id  = :id")
     fun getFavCharacter(id: String) : LiveData<FavCharacter>
+
+    @Query("Update favCharacter set isFav=:isFav  WHERE id = :id")
+    fun updateCharacter(id:String, isFav: Boolean)
 
 }

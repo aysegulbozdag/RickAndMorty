@@ -87,4 +87,10 @@ class CharacterDetailViewModel(private val context: Context, private val charact
             favCharacterDAO.insertFavCharacter(favCha)
         }
     }
+
+    fun update(id:String, isFav: Boolean){
+        CoroutineScope(Dispatchers.IO).launch {
+            favCharacterDAO.updateCharacter(id,isFav)
+        }
+    }
 }

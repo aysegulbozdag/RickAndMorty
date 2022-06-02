@@ -37,7 +37,7 @@ class CharacterDetailFragment : Fragment() {
         return bindig.root
     }
 
-    private fun setInit(){
+    private fun setInit() {
         viewModelFactory = ViewModelFactory(requireContext(), args.characterId)
         viewModel = ViewModelProvider(
             this, ViewModelFactory(
@@ -52,7 +52,7 @@ class CharacterDetailFragment : Fragment() {
         })
     }
 
-  private suspend fun getEpisode(){
+    private suspend fun getEpisode() {
         viewModel.episodeState.collect {
             it.data?.let { episode ->
                 bindig.episode = episode
@@ -60,7 +60,7 @@ class CharacterDetailFragment : Fragment() {
         }
     }
 
-    fun getCharacter(){
+    private fun getCharacter() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.characterState.collect {
                 when (it.status) {
@@ -78,8 +78,9 @@ class CharacterDetailFragment : Fragment() {
         }
     }
 
-    fun saveCharacter() {
-        viewModel.insert(FavCharacter(args.characterId, true))
+    fun saveCharacter(isFav: Boolean) {
+        if (viewModel.getFavCharacter.value != null) viewModel.update(args.characterId, isFav.not())
+        else viewModel.insert(FavCharacter(args.characterId, isFav.not()))
     }
 
 
