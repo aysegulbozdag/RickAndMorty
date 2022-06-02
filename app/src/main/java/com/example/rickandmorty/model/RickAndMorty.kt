@@ -13,10 +13,7 @@ data class Character(
     val episode: ArrayList<String>? = null
 )
 
-data class Location(
-    val name: String? = null,
-    val url: String? = null
-)
+data class Location(val name: String? = null, val url: String? = null)
 
 data class Origin(
     val name: String? = null,
