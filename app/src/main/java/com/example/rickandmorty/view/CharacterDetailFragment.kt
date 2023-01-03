@@ -78,7 +78,7 @@ class CharacterDetailFragment : Fragment() {
         }
     }
 
-    fun saveCharacter(isFav: Boolean) {
+    fun saveCharacter(view : View,isFav: Boolean) {
         if (viewModel.getFavCharacter.value != null) viewModel.update(args.characterId, isFav.not())
         else viewModel.insert(FavCharacter(args.characterId, isFav.not()))
     }

@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 data class FavCharacter(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "isFav")
-    val isFav: Boolean = true,
+    val isFav: Boolean,
 )

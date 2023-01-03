@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="character"
             type="com.example.rickandmorty.model.Character" />
@@ -246,14 +247,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/favIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{()->characterDetail.saveCharacter(favCharacterModel.fav)}"
+            android:onClick="@{(v)->characterDetail.saveCharacter(v,favCharacterModel.fav)}"
             app:loadFavCharacter="@{favCharacterModel.fav}"
             />
 
