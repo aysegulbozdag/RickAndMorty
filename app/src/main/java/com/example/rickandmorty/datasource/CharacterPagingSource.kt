@@ -3,8 +3,8 @@ package com.example.rickandmorty.datasource
 import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.rickandmorty.model.Character
-import com.example.rickandmorty.repository.CharacterRepository
+import com.example.rickandmorty.data.model.Character
+import com.example.rickandmorty.data.repository.CharacterRepository
 
 private const val STARTING_PAGE_INDEX = 1
 

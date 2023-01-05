@@ -1,11 +1,11 @@
-package com.example.rickandmorty.adapter
+package com.example.rickandmorty.view.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.databinding.RowRvBinding
-import com.example.rickandmorty.model.Character
+import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.util.BaseDiffUtilItemCallback
 
 class CharacterListAdapter : PagingDataAdapter<Character, CharacterListAdapter.MyViewHolder>(

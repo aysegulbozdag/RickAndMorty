@@ -1,4 +1,4 @@
-package com.example.rickandmorty.view
+package com.example.rickandmorty.view.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmorty.databinding.FragmentCharacterDetailBinding
-import com.example.rickandmorty.network.Status
-import com.example.rickandmorty.viewmodel.CharacterDetailViewModel
+import com.example.rickandmorty.data.network.Status
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
-import com.example.rickandmorty.db.entity.FavCharacter
-import com.example.rickandmorty.viewmodel.ViewModelFactory
+import com.example.rickandmorty.data.db.entity.FavCharacter
+import com.example.rickandmorty.view.ViewModelFactory
 
 class CharacterDetailFragment : Fragment() {
 

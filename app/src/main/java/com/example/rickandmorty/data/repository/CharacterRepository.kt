@@ -1,9 +1,9 @@
-package com.example.rickandmorty.repository
+package com.example.rickandmorty.data.repository
 
-import com.example.rickandmorty.model.Character
-import com.example.rickandmorty.model.Episode
-import com.example.rickandmorty.network.CharacterApiService
-import com.example.rickandmorty.network.CharacterApiState
+import com.example.rickandmorty.data.model.Character
+import com.example.rickandmorty.data.model.Episode
+import com.example.rickandmorty.data.network.CharacterApiService
+import com.example.rickandmorty.data.network.CharacterApiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

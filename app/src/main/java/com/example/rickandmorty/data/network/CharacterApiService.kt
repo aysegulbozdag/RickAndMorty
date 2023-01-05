@@ -1,8 +1,8 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.data.network
 
-import com.example.rickandmorty.model.Character
-import com.example.rickandmorty.model.Episode
-import com.example.rickandmorty.model.RickyAndMortList
+import com.example.rickandmorty.data.model.Character
+import com.example.rickandmorty.data.model.Episode
+import com.example.rickandmorty.data.model.RickyAndMortList
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

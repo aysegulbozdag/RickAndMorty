@@ -1,4 +1,4 @@
-package com.example.rickandmorty.interfaces
+package com.example.rickandmorty.view.filter
 
 
 interface FilterCharacter{

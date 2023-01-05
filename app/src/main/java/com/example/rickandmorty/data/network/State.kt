@@ -1,4 +1,4 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.data.network
 
 data class CharacterApiState<out T>(val status: Status, val data: T?, val message: String?) {
 

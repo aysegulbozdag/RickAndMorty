@@ -1,4 +1,4 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.data.network
 
 
 object CharacterApi {

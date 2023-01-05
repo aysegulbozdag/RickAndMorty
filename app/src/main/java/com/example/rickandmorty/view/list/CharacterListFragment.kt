@@ -1,4 +1,4 @@
-package com.example.rickandmorty.view
+package com.example.rickandmorty.view.list
 
 import android.os.Bundle
 import android.os.Parcel
@@ -11,15 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.Navigation
 import com.example.rickandmorty.R
-import com.example.rickandmorty.adapter.CharacterListAdapter
 import com.example.rickandmorty.databinding.FragmentCharacterListBinding
-import com.example.rickandmorty.interfaces.FilterCharacter
-import com.example.rickandmorty.viewmodel.CharacterListViewModel
-import com.example.rickandmorty.model.Character
+import com.example.rickandmorty.view.filter.FilterCharacter
+import com.example.rickandmorty.data.model.Character
 import kotlinx.coroutines.flow.collectLatest
 
 
-class CharacterListFragment() : Fragment(), CharacterListAdapter.OnItemClickListener<Character>, FilterCharacter,
+class CharacterListFragment() : Fragment(), CharacterListAdapter.OnItemClickListener<Character>,
+    FilterCharacter,
     Parcelable {
 
     private lateinit var binding: FragmentCharacterListBinding

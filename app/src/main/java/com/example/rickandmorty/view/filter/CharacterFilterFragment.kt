@@ -1,15 +1,11 @@
-package com.example.rickandmorty.view
+package com.example.rickandmorty.view.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.rickandmorty.R
-import android.widget.ArrayAdapter
-import android.widget.Filter
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmorty.databinding.FragmentFilterCharacterBinding
-import com.example.rickandmorty.interfaces.FilterCharacter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CharacterFilterFragment() : BottomSheetDialogFragment() {

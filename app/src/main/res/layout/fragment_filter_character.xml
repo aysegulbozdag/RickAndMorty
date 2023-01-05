@@ -5,7 +5,7 @@
     <data>
         <variable
             name="characterFilterFragment"
-            type="com.example.rickandmorty.view.CharacterFilterFragment" />
+            type="com.example.rickandmorty.view.filter.CharacterFilterFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

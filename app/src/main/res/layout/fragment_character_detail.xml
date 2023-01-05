@@ -13,10 +13,10 @@
             type="com.example.rickandmorty.model.Episode" />
         <variable
             name="characterDetail"
-            type="com.example.rickandmorty.view.CharacterDetailFragment" />
+            type="com.example.rickandmorty.view.detail.CharacterDetailFragment" />
         <variable
             name="favCharacterModel"
-            type="com.example.rickandmorty.db.entity.FavCharacter" />
+            type="com.example.rickandmorty.data.db.entity.FavCharacter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

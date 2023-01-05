@@ -1,6 +1,6 @@
-package com.example.rickandmorty.model
+package com.example.rickandmorty.data.model
 
-data class RickyAndMortList(val info: info, val results: List<Character>)
+data class RickyAndMortList(val info: Info, val results: List<Character>)
 data class Character(
     val id: String? = null,
     val name: String? = null,
@@ -27,4 +27,4 @@ data class Episode(
     val episode: String? = null
 )
 
-data class info(val count: Int?, val pages: String?, val next: String?, val prev: String?)
+data class Info(val count: Int?, val pages: String?, val next: String?, val prev: String?)

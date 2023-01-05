@@ -1,4 +1,4 @@
-package com.example.rickandmorty.db.entity
+package com.example.rickandmorty.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

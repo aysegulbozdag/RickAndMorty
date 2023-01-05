@@ -1,11 +1,11 @@
-package com.example.rickandmorty.db.dao
+package com.example.rickandmorty.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.rickandmorty.db.entity.FavCharacter
+import com.example.rickandmorty.data.db.entity.FavCharacter
 
 @Dao
 interface FavCharacterDAO {

@@ -1,17 +1,17 @@
-package com.example.rickandmorty.viewmodel
+package com.example.rickandmorty.view.detail
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmorty.db.FavCharacterInstance
-import com.example.rickandmorty.db.dao.FavCharacterDAO
-import com.example.rickandmorty.db.entity.FavCharacter
-import com.example.rickandmorty.model.Character
-import com.example.rickandmorty.model.Episode
+import com.example.rickandmorty.data.db.FavCharacterInstance
+import com.example.rickandmorty.data.db.dao.FavCharacterDAO
+import com.example.rickandmorty.data.db.entity.FavCharacter
+import com.example.rickandmorty.data.model.Character
+import com.example.rickandmorty.data.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.rickandmorty.network.*
-import com.example.rickandmorty.repository.CharacterRepository
+import com.example.rickandmorty.data.network.*
+import com.example.rickandmorty.data.repository.CharacterRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 
