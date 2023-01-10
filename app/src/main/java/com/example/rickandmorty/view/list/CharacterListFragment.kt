@@ -14,6 +14,8 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.FragmentCharacterListBinding
 import com.example.rickandmorty.view.filter.FilterCharacter
 import com.example.rickandmorty.data.model.Character
+import com.example.rickandmorty.view.detail.CharacterDetailFragmentArgs
+import com.example.rickandmorty.view.filter.CharacterFilterFragmentArgs
 import kotlinx.coroutines.flow.collectLatest
 
 

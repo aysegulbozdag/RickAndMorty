@@ -1,4 +1,4 @@
-package com.example.rickandmorty.domain
+package com.example.rickandmorty.domain.usecase
 
 import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.data.remote.State

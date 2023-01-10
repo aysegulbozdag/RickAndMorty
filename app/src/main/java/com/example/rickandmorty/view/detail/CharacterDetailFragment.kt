@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.rickandmorty.databinding.FragmentCharacterDetailBinding
-import com.example.rickandmorty.data.network.Status
+import com.example.rickandmorty.data.remote.Status
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
 import com.example.rickandmorty.data.db.entity.FavCharacter
@@ -46,7 +46,7 @@ class CharacterDetailFragment : Fragment() {
         )[CharacterDetailViewModel::class.java]
 
         bindig.characterDetail = this
-        viewModel.getFavCharacter.observe(this, Observer {
+        viewModel.getFavCharacter.observe(viewLifecycleOwner, Observer {
             bindig.favCharacterModel = it
         })
     }

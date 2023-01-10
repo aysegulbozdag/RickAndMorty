@@ -1,4 +1,4 @@
-package com.example.rickandmorty.data.network
+package com.example.rickandmorty.data.remote
 
 import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.data.model.Episode

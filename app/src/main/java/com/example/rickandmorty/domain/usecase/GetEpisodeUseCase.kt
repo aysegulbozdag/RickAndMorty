@@ -1,8 +1,8 @@
-package com.example.rickandmorty.domain
+package com.example.rickandmorty.domain.usecase
 
 import com.example.rickandmorty.data.model.Episode
 import com.example.rickandmorty.data.remote.State
-import com.example.rickandmorty.data.repository.CharacterRepository
+import com.example.rickandmorty.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

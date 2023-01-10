@@ -6,7 +6,7 @@
     <data>
         <variable
             name="character"
-            type="com.example.rickandmorty.model.Character" />
+            type="com.example.rickandmorty.data.model.Character" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

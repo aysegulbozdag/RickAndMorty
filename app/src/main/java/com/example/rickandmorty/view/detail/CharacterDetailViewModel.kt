@@ -9,32 +9,27 @@ import com.example.rickandmorty.data.db.dao.FavCharacterDAO
 import com.example.rickandmorty.data.db.entity.FavCharacter
 import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.data.model.Episode
+import com.example.rickandmorty.data.remote.CharacterApi
+import com.example.rickandmorty.data.remote.State
+import com.example.rickandmorty.data.remote.Status
+import com.example.rickandmorty.data.repository.CharacterRepositoryImpl
+import com.example.rickandmorty.domain.usecase.GetCharacterUseCase
+import com.example.rickandmorty.domain.usecase.GetEpisodeUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.rickandmorty.data.network.*
-import com.example.rickandmorty.data.repository.CharacterRepository
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel(private val context: Context, private val characterId: String) : ViewModel() {
 
-    private val repository = CharacterRepository(
-        CharacterApi.RETROFIT_SERVICE
-    )
-
-    val characterState = MutableStateFlow(
-        CharacterApiState(
-            Status.LOADING,
-            Character(), ""
-        )
-    )
-
-    val episodeState = MutableStateFlow(
-        CharacterApiState(
-            Status.LOADING,
-            Episode(), ""
-        )
-    )
-
+    private val repositoryGetCharacter =
+        GetCharacterUseCase(CharacterRepositoryImpl(CharacterApi.RETROFIT_SERVICE))
+    private val repositoryGetEpisode =
+        GetEpisodeUseCase(CharacterRepositoryImpl(CharacterApi.RETROFIT_SERVICE))
+    val characterState = MutableStateFlow(State(Status.LOADING, Character(), ""))
+    val episodeState = MutableStateFlow(State(Status.LOADING, Episode(), ""))
     private lateinit var favCharacterDAO: FavCharacterDAO
     lateinit var getFavCharacter: LiveData<FavCharacter>
 
@@ -51,32 +46,30 @@ class CharacterDetailViewModel(private val context: Context, private val charact
 
 
         private fun getCharacter() {
-            characterState.value = CharacterApiState.loading()
             viewModelScope.launch {
-                repository.getSingleCharacter(characterId.toInt())
+                repositoryGetCharacter.invoke(characterId.toInt())
                     .catch {
                         characterState.value =
-                            CharacterApiState.error(it.message.toString())
+                            State.error(it.message.toString())
                     }
-                    .collect {
-                        characterState.value = CharacterApiState.success(it.data)
+                    .onEach {
+                        characterState.value = State.success(it.data)
                     }
             }
         }
 
     private fun getEpisode() {
-            episodeState.value = CharacterApiState.loading()
-            viewModelScope.launch {
-                repository.getEpisode(characterId.toInt())
-                    .catch {
-                        episodeState.value =
-                            CharacterApiState.error(it.message.toString())
-                    }
-                    .collect {
-                        episodeState.value = CharacterApiState.success(it.data)
-                    }
-            }
+        viewModelScope.launch {
+            repositoryGetEpisode.invoke(characterId.toInt())
+                .catch {
+                    episodeState.value =
+                        State.error(it.message.toString())
+                }
+                .collect {
+                    episodeState.value = State.success(it.data)
+                }
         }
+    }
 
     private fun getFavCharacter() {
         getFavCharacter = favCharacterDAO.getFavCharacter(characterId)

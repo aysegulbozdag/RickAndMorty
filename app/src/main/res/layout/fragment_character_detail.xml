@@ -7,10 +7,10 @@
         <import type="android.view.View" />
         <variable
             name="character"
-            type="com.example.rickandmorty.model.Character" />
+            type="com.example.rickandmorty.data.model.Character" />
         <variable
             name="episode"
-            type="com.example.rickandmorty.model.Episode" />
+            type="com.example.rickandmorty.data.model.Episode" />
         <variable
             name="characterDetail"
             type="com.example.rickandmorty.view.detail.CharacterDetailFragment" />

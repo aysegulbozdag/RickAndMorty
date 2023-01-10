@@ -1,4 +1,4 @@
-package com.example.rickandmorty.data.network
+package com.example.rickandmorty.data.remote
 
 data class State<out T>(val status: Status, val data: T?, val message: String?) {
 

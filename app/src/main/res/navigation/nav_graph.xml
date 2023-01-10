@@ -31,6 +31,6 @@
         tools:layout="@layout/fragment_filter_character">
         <argument
             android:name="filterListener"
-            app:argType="com.example.rickandmorty.view.CharacterListFragment" />
+            app:argType="com.example.rickandmorty.view.list.CharacterListFragment" />
     </dialog>
 </navigation>

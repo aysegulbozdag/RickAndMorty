@@ -2,36 +2,21 @@ package com.example.rickandmorty.data.repository
 
 import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.data.model.Episode
-import com.example.rickandmorty.data.network.CharacterApiService
-import com.example.rickandmorty.data.network.CharacterApiState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import com.example.rickandmorty.data.model.RickyAndMortList
+import com.example.rickandmorty.data.remote.CharacterApiService
+import com.example.rickandmorty.domain.repository.CharacterRepository
 
-class CharacterRepository(private val apiService: CharacterApiService) {
+class CharacterRepositoryImpl(private val apiService: CharacterApiService) : CharacterRepository {
 
-    suspend fun getAllCharacters(
+    override suspend fun getAllCharacters(
         characterName: String?,
         characterStatus: String?,
         page: Int?
-    ) = apiService.getAllCharacters(characterName, characterStatus, page)
+    ): RickyAndMortList = apiService.getAllCharacters(characterName, characterStatus, page)
 
-    suspend fun getSingleCharacter(id: Int): Flow<CharacterApiState<Character>> {
-        return flow {
+    override suspend fun getCharacter(id: Int): Character = apiService.getSingleCharacter(id)
 
-            val character = apiService.getSingleCharacter(id)
-            emit(CharacterApiState.success(character))
+    override suspend fun getEpisode(id: Int): Episode = apiService.getEpisode(id)
 
-        }.flowOn(Dispatchers.IO)
-    }
 
-    suspend fun getEpisode(id: Int): Flow<CharacterApiState<Episode>> {
-        return flow {
-
-            val episode = apiService.getEpisode(id)
-            emit(CharacterApiState.success(episode))
-
-        }.flowOn(Dispatchers.IO)
-    }
 }

@@ -5,34 +5,34 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.rickandmorty.data.model.Character
 import com.example.rickandmorty.data.model.Info
-import com.example.rickandmorty.data.network.Status
-import com.example.rickandmorty.domain.GetCharacterUseCase
-import kotlinx.coroutines.flow.onEach
+import com.example.rickandmorty.data.remote.Status
+import com.example.rickandmorty.domain.usecase.GetAllCharactersUseCase
 
 private const val STARTING_PAGE_INDEX = 1
 
 class CharacterPagingSource constructor(
-    private val service: GetCharacterUseCase, var name: String?, var status: String?
+    private val service: GetAllCharactersUseCase, var name: String?, var status: String?
 ) : PagingSource<Int, Character>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
 
         return try {
+
             lateinit var response: List<Character>
             lateinit var info: Info
-            service().onEach { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        response = result.data!!.results
-                        info = result.data.info
-                    }
-                }
-            }
-
-            //  val response = service.getAllCharacters(name,status,pageIndex)
-            //   val character=response.results
             var nextKey: Int? = null
+
+            service.invoke(name,status,pageIndex).collect{
+                when(it.status){
+                    Status.SUCCESS -> {
+                        response = it.data!!.results
+                        info = it.data.info
+                    }
+                    Status.ERROR -> it.message
+                }
+
+            }
 
             if (info.next != null) {
                 val uri = Uri.parse(info.next)
